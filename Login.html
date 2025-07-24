@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Boa Amponsem Senior High</title>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+
+    header {
+      background-color: #006400;
+      color: #fff;
+      padding: 20px 0;
+      text-align: center;
+    }
+
+    .logo {
+      max-width: 100px;
+      display: block;
+      margin: 0 auto 10px;
+    }
+
+    .motto {
+      font-style: italic;
+      font-size: 1.1em;
+      margin-bottom: 10px;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    section {
+      padding: 40px 20px;
+      background-color: #fff;
+      margin: 10px auto;
+      max-width: 900px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    section h2 {
+      color: #228B22;
+    }
+
+    footer {
+      background-color: #eee;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    input, select {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1em;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .password-container {
+      position: relative;
+      width: 100%;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 1.2em;
+      padding: 0;
+    }
+
+    .toggle-password:hover {
+      background: transparent;
+    }
+
+    .criteria {
+      font-size: 0.9em;
+      color: #888;
+    }
+
+    .criteria span {
+      display: flex;
+      align-items: center;
+      margin-top: 5px;
+    }
+
+    .criteria span::before {
+      content: '❌';
+      margin-right: 5px;
+      color: red;
+    }
+
+    .criteria .valid::before {
+      content: '✅';
+      color: green;
+    }
+
+    .valid {
+      color: green;
+      font-weight: bold;
+    }
+
+    button {
+      background-color: #006400;
+      color: #fff;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #004d00;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="boa-amponsem-senior-high (1).png" alt="Boa Amponsem SHS Logo" class="logo">
+    <h1>Boa Amponsem Senior High School</h1>
+    <p class="motto">Perseverance, Truth and Courage</p>
+    <nav>
+      <ul>
+        <li><a href="#login">Login</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="login">
+    <h2>Student Login</h2>
+    <form onsubmit="return validateForm()">
+      <input type="text" name="firstName" placeholder="First Name" required />
+      <input type="text" name="middleName" placeholder="Middle Name (optional)" />
+      <input type="text" name="lastName" placeholder="Last Name" required />
+
+      <select name="course" required>
+        <option value="">-- Select Course --</option>
+        <option value="General Science">General Science</option>
+        <option value="General Arts">General Arts</option>
+        <option value="Visual Arts">Visual Arts</option>
+        <option value="Agric Science">Agric Science</option>
+        <option value="Business">Business</option>
+        <option value="Home Economics">Home Economics</option>
+      </select>
+
+      <div class="password-container">
+        <input type="password" name="password" id="password" placeholder="Password" required oninput="checkPassword()" />
+        <button type="button" class="toggle-password" onclick="togglePassword()">👁️</button>
+      </div>
+
+      <div class="criteria">
+        <span id="length">At least 8 characters</span>
+        <span id="uppercase">At least one capital letter</span>
+        <span id="symbol">At least one number or symbol</span>
+      </div>
+
+      <button type="submit">Login</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Boa Amponsem Senior High School</p>
+  </footer>
+
+  <script>
+    function togglePassword() {
+      const password = document.getElementById('password');
+      password.type = password.type === 'password' ? 'text' : 'password';
+    }
+
+    function checkPassword() {
+      const password = document.getElementById('password').value;
+
+      document.getElementById('length').className = password.length >= 8 ? 'valid' : '';
+      document.getElementById('uppercase').className = /[A-Z]/.test(password) ? 'valid' : '';
+      document.getElementById('symbol').className = /[0-9!@#$%^&*]/.test(password) ? 'valid' : '';
+    }
+
+    function validateForm() {
+      const password = document.getElementById('password').value;
+      const regex = /^(?=.*[A-Z])(?=.*[0-9!@#$%^&*])(?=.{8,})/;
+      if (!regex.test(password)) {
+        alert("Password must contain at least 8 characters, one capital letter, and one symbol or number.");
+        return false;
+      }
+      return true;
+    }
+  </script>
+</body>
+</html>
